@@ -4,13 +4,15 @@
     <meta charset="UTF-8" />
     <title>Effora Redirect</title>
     <script>
-  const fragment = window.location.hash;
+  const query = window.location.search || '';
+  const fragment = window.location.hash || '';
+
   if (fragment.includes('reset-password')) {
-    // Password reset redirect
-    const deepLink = 'effora://reset-password' + fragment.replace('#/reset-password', '');
+    // Password reset deep link
+    const deepLink = 'effora://reset-password' + query;
     window.location.href = deepLink;
   } else {
-    // Default login confirmation redirect
+    // Default login confirmation deep link
     const deepLink = 'effora://login';
     window.location.href = deepLink;
   }
