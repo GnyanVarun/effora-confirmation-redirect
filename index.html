@@ -4,21 +4,21 @@
     <meta charset="UTF-8" />
     <title>Effora Redirect</title>
     <script>
-  const query = window.location.search || '';
-  const fragment = window.location.hash || '';
+      const params = new URLSearchParams(window.location.search);
+      const code = params.get("code");
+      const fragment = window.location.hash;
 
-  if (fragment.includes('reset-password')) {
-    // Password reset deep link
-    const deepLink = 'effora://reset-password' + query;
-    window.location.href = deepLink;
-  } else {
-    // Default login confirmation deep link
-    const deepLink = 'effora://login';
-    window.location.href = deepLink;
-  }
-</script>
+      if (fragment.includes("reset-password") && code) {
+        // ✅ Properly forward the access code
+        const deepLink = `effora://reset-password?access_token=${code}`;
+        window.location.href = deepLink;
+      } else {
+        // Default login flow
+        window.location.href = "effora://login";
+      }
+    </script>
   </head>
   <body>
-    <p>Email verified. Redirecting to the Effora app...</p>
+    <p>Redirecting to the Effora app...</p>
   </body>
 </html>
