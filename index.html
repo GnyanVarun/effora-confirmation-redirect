@@ -4,8 +4,17 @@
     <meta charset="UTF-8" />
     <title>Effora Redirect</title>
     <script>
-      window.location.href = "effora://login";
-    </script>
+  const fragment = window.location.hash;
+  if (fragment.includes('reset-password')) {
+    // Password reset redirect
+    const deepLink = 'effora://reset-password' + fragment.replace('#/reset-password', '');
+    window.location.href = deepLink;
+  } else {
+    // Default login confirmation redirect
+    const deepLink = 'effora://login';
+    window.location.href = deepLink;
+  }
+</script>
   </head>
   <body>
     <p>Email verified. Redirecting to the Effora app...</p>
